@@ -1,4 +1,5 @@
 import BusquedaBar from "@/components/BusquedaBar";
+import TarjetaPelicula from "@/components/tarjetaPelicula";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { fetchPeliculasPopulares } from "@/services/api";
@@ -9,6 +10,7 @@ import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "reac
 export default function Index() {
   const ruta = useRouter()
   const { data: peliculas, loading: cargandoPeliculas, error: errorPeliculas, } = useFetch(() => fetchPeliculasPopulares({ consulta: "" }))
+
   // index primario
   return (
     <View
@@ -26,10 +28,16 @@ export default function Index() {
             <>
               <Text className="text-white text-lg font-bold mb-3 mt-5">Películas Populares</Text>
               <FlatList
-                data={peliculas}
+                data={peliculas ?? []}
                 renderItem={({ item }) => (
-                  <Text className="text-white text-sm">hola</Text>
+                  <TarjetaPelicula {...item} />
                 )}
+                keyExtractor={(item) => item.id.toString()}
+                numColumns={3}
+                columnWrapperStyle={{ justifyContent: "flex-start", marginBottom: 10, gap: 20, paddingRight: 5 }}
+
+                className="mt-2 pb-32"
+                scrollEnabled={false}
               />
             </>
           </View>
