@@ -3,6 +3,7 @@ import TarjetaPelicula from '@/components/tarjetaPelicula'
 import { icons } from '@/constants/icons'
 import { images } from '@/constants/images'
 import { fetchPeliculasPopulares } from '@/services/api'
+import { actualizarConteoBusqueda } from '@/services/appwrite'
 import useFetch from '@/services/useFetch'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from 'react-native'
@@ -18,6 +19,8 @@ const Busqueda = () => {
         const tiempoId = setTimeout(async () => {
             if (busqueda.trim() !== '') {
                 await cargarPeliculas()
+                if (peliculas?.length > 0 && peliculas?.[0])
+                    await actualizarConteoBusqueda(busqueda, peliculas?.[0])
             } else {
                 resetPeliculas()
             }
