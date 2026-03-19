@@ -42,6 +42,7 @@ export default function Index() {
                     )}
                     keyExtractor={(item) => item.pelicula_id.toString()}
                     horizontal
+                    ItemSeparatorComponent={() => <View className="w-4" />}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingRight: 20, gap: 15 }}
                   />

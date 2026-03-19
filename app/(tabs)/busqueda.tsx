@@ -19,14 +19,20 @@ const Busqueda = () => {
         const tiempoId = setTimeout(async () => {
             if (busqueda.trim() !== '') {
                 await cargarPeliculas()
-                if (peliculas?.length > 0 && peliculas?.[0])
-                    await actualizarConteoBusqueda(busqueda, peliculas?.[0])
+
             } else {
                 resetPeliculas()
             }
         }, 500)
         return () => clearTimeout(tiempoId);
     }, [busqueda])
+
+    useEffect(() => {
+        if (peliculas?.length > 0 && peliculas?.[0]) {
+            actualizarConteoBusqueda(busqueda, peliculas?.[0])
+        }
+
+    }, [peliculas])
 
     return (
         <View
