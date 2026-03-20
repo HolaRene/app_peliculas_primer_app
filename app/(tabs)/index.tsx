@@ -1,5 +1,6 @@
 import BusquedaBar from "@/components/BusquedaBar";
 import TarjetaPelicula from "@/components/tarjetaPelicula";
+import TarjetaPeliculasPopulares from "@/components/TarjetaPeliculasPopulares";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { fetchPeliculasPopulares } from "@/services/api";
@@ -38,7 +39,7 @@ export default function Index() {
                     className="mb-4 mt-3"
                     data={peliculasPopulares}
                     renderItem={({ item, index }) => (
-                      <Text className="text-lg text-white">{item.titulo}</Text>
+                      <TarjetaPeliculasPopulares pelicula={item} index={index} key={index} />
                     )}
                     keyExtractor={(item) => item.pelicula_id.toString()}
                     horizontal
