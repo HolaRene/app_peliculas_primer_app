@@ -19,3 +19,17 @@ export const fetchPeliculasPopulares = async ({consulta}: {consulta: string}) =>
     const data = await response.json()
     return data?.results ?? []
 }
+
+export const fetchDetallesPelicula = async (id: string):Promise<MovieDetails | undefined> => {
+    try {
+            const respuesta = await fetch(`${TMDB_CONFIG.BASE_URL}/movie/${id}?api_key=${TMDB_CONFIG.API_KEY}`,{
+                method: 'GET',
+                headers: TMDB_CONFIG.headers
+            })
+            if (!respuesta.ok) throw new Error('Error al obtener los detalles de la película', {cause: respuesta.statusText})
+            const data = await respuesta.json()
+            return data
+    } catch (error) {
+        console.log('Ha ocurrido un error al obtener los detalles de la película:', error)
+    }
+}
